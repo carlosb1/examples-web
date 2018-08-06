@@ -1,0 +1,42 @@
+from os import environ
+from dotenv import load_dotenv, find_dotenv
+from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
+from models import db, Chat
+
+load_dotenv(find_dotenv())
+app = Flask(__name__)
+
+
+app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
+app.config['DEBUG'] = True if environ.get('DEBUG') == 'True' else False
+app.config['PORT'] = 80
+
+DOMAIN = environ.get('DOMAIN')
+
+socketio = SocketIO(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE')
+db.init_app(app)
+
+
+@app.route('/<username>/')
+def open_chat(username):
+    my_chat = Chat.query.all()
+    return render_template('chat.html', domain=DOMAIN, chat=my_chat, username=username)
+
+
+@socketio.on('new_message')
+def new_message(message):
+    emit('new_message', {
+        'username': message['username'],
+        'text': message['text']}, broadcast=True)
+
+    my_new_chat = Chat(username=message['username'], text=message['text'])
+
+    db.session.add(my_new_chat)
+    db.session.commit()
+
+
+if __name__ == '__main__':
+    socketio.run(app)
