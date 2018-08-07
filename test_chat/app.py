@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['DEBUG'] = True if environ.get('DEBUG') == 'True' else False
-app.config['PORT'] = 80
+app.config['PORT'] = 11234
 
 DOMAIN = environ.get('DOMAIN')
 
@@ -39,4 +39,6 @@ def new_message(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    #import pudb
+    #pudb.set_trace()
+    socketio.run(app, port=5555)
