@@ -14,12 +14,13 @@
 		</section>
 		<section>
 			<input v-model="newMessage" @keypress.enter="sendMessage" type="text" placeHolder="Type a message..."/>
+			<button @click="sendMessage">Enviar</button>
 		</section>
-		<script src="https://cdnjs.cloudfare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
-		<script src="https://cdnjs.cloudfare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
 
 		<script>
-			var socket = io.connect('{{domain}}');
+			var socket = io.connect('{{ domain }}');
 			var app = new Vue ({
 				e1: "#app",
 				delimiters: ['[[',']]'],
@@ -33,7 +34,6 @@
 
 						}{% if not loop.last %},{% endif %}
 					{% endfor %}
-
 					],
 					newMessage: ''
 				}, 
