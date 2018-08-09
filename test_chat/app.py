@@ -9,7 +9,10 @@ app = Flask(__name__)
 
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
-app.config['DEBUG'] = True if environ.get('DEBUG') == 'True' else False
+if environ.get('DEBUG') == 'True':
+    app.config['DEBUG'] = True
+else:
+    app.config['DEBUG'] = False
 app.config['PORT'] = 80
 
 DOMAIN = environ.get('DOMAIN')
@@ -19,32 +22,40 @@ socketio = SocketIO(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE')
 db.init_app(app)
 
-import sys
 
-print('This error output', file=sys.stderr)
-print('This standard output', file=sys.stdout)
-
-
-@app.route('/<username>/')
-def open_chat(username):
-    my_chat = Chat.query.all()
-    return render_template('chat.html', domain=DOMAIN, chat=my_chat, username=username)
+@app.route('/<int:channel>/<name>/')
+def open_chat(channel, name):
+    my_chat = Chat.query.filter_by(channel=channel).all()
+    return render_template(
+        'chat.html',
+        domain=DOMAIN,
+        chat=my_chat,
+        channel=channel,
+        username=name
+    )
 
 
 @socketio.on('new_message')
 def new_message(message):
-    print(str(message), file=sys.stdout)
-    emit('new_message', {
+    # Send message to alls users
+    emit('channel-' + str(message['channel']), {
         'username': message['username'],
-        'text': message['text']}, broadcast=True)
-
-    my_new_chat = Chat(username=message['username'], text=message['text'])
-
+        'text': message['text']
+    },
+        broadcast=True
+    )
+    # Save message
+    my_new_chat = Chat(
+        username=message['username'],
+        text=message['text'],
+        channel=message['channel']
+    )
     db.session.add(my_new_chat)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 
 if __name__ == '__main__':
-    # import pudb
-    # pudb.set_trace()
     socketio.run(app, port=5555)
