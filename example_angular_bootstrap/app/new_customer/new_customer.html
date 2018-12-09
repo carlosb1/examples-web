@@ -1,0 +1,59 @@
+<div class='container'>
+    <h2>Customer Information</h2>
+<div class="panel">
+    <form  name='form'>
+    <div class="form-group row">
+        <label for="name-input" class="col-2 col-form-label">Name</label>
+        <div class="col-10">
+            <input class="form-control" type="text" id="name-input"  ng-model="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="surname-input" class="col-2 col-form-label">Surname</label>
+        <div class="col-10">
+            <input class="form-control" type="text" id="surname-input" ng-model="surname" >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="description-input" class="col-2 col-form-label">Description</label>
+        <div class="col-10">
+            <input class="form-control" type="text"  id="description-input" ng-model="description" >
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="tel-input" class="col-2 col-form-label">Telephone</label>
+        <div class="col-10">
+            <input class="form-control" type="tel" value="1-(555)-555-5555" id="tel-input"  ng-model="telephone" >
+        </div>
+    </div>
+        <button type="submit" class="btn btn-default" ng-disabled="form.$pristine">Update</button>
+    </form>
+</div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">History services</div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Service</th>
+                        <th>Cost</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>9/9/17 </td>
+                        <td>Cleaning</td>
+                        <td>35</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

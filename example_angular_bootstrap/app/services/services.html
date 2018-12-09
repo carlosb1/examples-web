@@ -1,0 +1,184 @@
+
+
+<div class='container'>
+    <h2>Services</h2>
+
+    <div class="panel-group">
+        <!-- new service -->
+        <div class="panel panel-default">
+            <div class="panel-heading">New Service</div>
+            <div class="panel-body">
+                <div id="new_service">
+                    <div class="col-xs-12 col-sm-12">
+                        <form role="form" ng-submit="postNewService()" class='form-horizontal'>
+                            <div class="form-group">
+                                <div class="col-xs-2 text-right">
+                                    <label for="cpName">Service</label>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control" placeholder="Name" id="cpName" ng-model="service_name" />
+                                </div>
+                                <div class="col-xs-2 input-group">
+                                    <span class="input-group-addon">&euro;</span>
+                                    <input type="number" id="numberPrice" min="0" data-bind="value:numberPrice"  ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" />
+                                    <span class="input-group-addon"> IVA: </span>
+                                    <input type="number" id="numberIVA" min="0" data-bind="value:numberIVA" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-2 text-right">
+                                    <label for="cpDesc">Descripción</label>
+                                </div>
+                                <div class="col-xs-10">
+                                    <textarea class="form-control" rows="3" placeholder="Description of the program" id="cpDesc" ng-model="service_description"> </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                <!-- image-preview-filename input [CUT FROM HERE]-->
+                                <div class="input-group image-preview">
+                                    <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+                                    <span class="input-group-btn">
+                                    <!-- image-preview-clear button -->
+                                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                        <span class="glyphicon glyphicon-remove"></span> Clear
+                                    </button>
+                                                        <!-- image-preview-input -->
+                                    <div class="btn btn-default image-preview-input">
+                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                        <span class="image-preview-input-title">Browse</span>
+                                        <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/> <!-- rename it -->
+                                    </div>
+                                </span>
+                                </div><!-- /input-group image-preview [TO HERE]-->
+                            </div>
+
+                            <button type="submit" class="btn btn-default pull-right">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Search services</div>
+            <div class="panel-body">
+                        <form ng-submit="searchByText()" class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search</button>
+                            </div><!-- /btn-group -->
+                            <input type="text" ng-model="text" class="form-control" aria-label="...">
+                        </form><!-- /input-group -->
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Results</div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-condensed table-hover">
+                        <thead>
+                        <tr>
+                            <th class="id" custom-sort order="'id'" sort="sort">Id&nbsp;</th>
+                            <th class="name" custom-sort order="'name'" sort="sort">Name&nbsp;</th>
+                            <th class="description" custom-sort order="'description'" sort="sort">Description&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+
+                        <td colspan="6">
+                            <ul class="pagination pull-right">
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Prev</a>
+                                </li>
+
+                                <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+                                    ng-class="{active: n == currentPage}"
+                                    ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+
+                                <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Next »</a>
+                                </li>
+                            </ul>
+                        </td>
+                        </tfoot>
+                        <tbody>
+
+                        <tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+                            <td>{{item.service_uuid}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
+                            <td> <button type="button" ng-click="viewInfoService($index)">View</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '#close-preview', function(){
+        $('.image-preview').popover('hide');
+        // Hover befor close the preview
+        $('.image-preview').hover(
+            function () {
+                $('.image-preview').popover('show');
+            },
+            function () {
+                $('.image-preview').popover('hide');
+            }
+        );
+    });
+
+    $(function() {
+        // Create the close button
+        var closebtn = $('<button/>', {
+            type:"butto n",
+            text: 'x',
+            id: 'close-preview',
+            style: 'font-size: initial;',
+        });
+        closebtn.attr("class","close pull-right");
+        // Set the popover default content
+        $('.image-preview').popover({
+            trigger:'manual',
+            html:true,
+            title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+            content: "There's no image",
+            placement:'bottom'
+        });
+        // Clear event
+        $('.image-preview-clear').click(function(){
+            $('.image-preview').attr("data-content","").popover('hide');
+            $('.image-preview-filename').val("");
+            $('.image-preview-clear').hide();
+            $('.image-preview-input input:file').val("");
+            $(".image-preview-input-title").text("Browse");
+        });
+        // Create the preview image
+        $(".image-preview-input input:file").change(function (){
+            var img = $('<img/>', {
+                id: 'dynamic',
+                width:250,
+                height:200
+            });
+            var file = this.files[0];
+            var reader = new FileReader();
+            // Set preview image into the popover data-content
+            reader.onload = function (e) {
+                $(".image-preview-input-title").text("Change");
+                $(".image-preview-clear").show();
+                $(".image-preview-filename").val(file.name);
+                img.attr('src', e.target.result);
+                $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+</script>

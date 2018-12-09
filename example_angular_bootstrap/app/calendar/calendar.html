@@ -1,0 +1,44 @@
+<div class='container'>
+	<h2> Calendar</h2>
+	<div class="panel-group">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Events</div>
+			<div class="panel-body">
+				<button type="button" class="btn btn-default"  data-toggle="collapse"  data-target="#new_event">Add event</button>
+				<div id="new_event" class="collapse">
+					<div class="col-xs-12 col-sm-12">
+						<form role="form" class='form-horizontal'>
+							<div class="form-group">
+								<div class="col-xs-3 text-right">
+									<label for="cpName">Name</label>
+								</div>
+								<div class="col-xs-3">
+									<input type="text" class="form-control" placeholder="Name" id="cpName" />
+								</div>
+								<div class="col-xs-3 text-right">
+									<label for="cpService">Service</label>
+								</div>
+								<div class="col-xs-3">
+									<input type="text" class="form-control" placeholder="Service" id="cpService" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-xs-3 text-right">
+									<label for="cpDesc">Description</label>
+								</div>
+								<div class="col-xs-9">
+									<textarea class="form-control" rows="3" placeholder="Description of the program" id="cpDesc"></textarea>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-default pull-right">Submit</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div  ui-calendar ng-model="eventSources"></div>
+</div>

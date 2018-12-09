@@ -1,0 +1,73 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+ /* for testing table format */
+.table th:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.table .action-column{
+  width: 230px;
+}
+.table .action-column:hover{
+  text-decoration: none;
+  cursor: default;
+}
+.table tfoot .pagination{
+  float: right;
+  margin: 0;
+}
+.table tfoot .pagination li{
+  cursor: pointer;
+}
+.table tfoot select{
+  width: 90px;
+  float: right;
+  margin-right: 8px;
+}
+/* for images */
+.image-preview-input {
+  position: relative;
+  overflow: hidden;
+  margin: 0px;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.image-preview-input input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+  margin-left:2px;
+}
