@@ -6,16 +6,16 @@
     <h4 class="navbar-brand text-white ">Fake news detector</h4>
     </li>
       <li class="nav-item">
-      <a class="nav-link" href="#">Your recommendations</a>
+      <router-link to="/" class="nav-link">Your recommendations</router-link>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Trending</a>
+      <router-link to="/Trending" class="nav-link">Trending</router-link>
     </li>
       </ul>
         <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
         <ul class="navbar-nav">
-          <li class="nav-item"><a  class="nav-link" href="#"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a></li>
-          <li class="nav-item" ><a  class="nav-link"  href="#"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a></li>
+         <!-- <li class="nav-item"><router-link to="/signin" class="nav-link"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></router-link></li> -->
+          <li class="nav-item" ><router-link to="/login"  class="nav-link"  ><i class="fa fa-user fa-2x" aria-hidden="true"></i></router-link></li>
         </ul>
       </div>
   </nav>
@@ -23,19 +23,17 @@
   <div class="container">
 
   <!-- Navbar content -->
-    <Page />
+    <router-view class="view"></router-view>
   </div>
     </div>
 
 </template>
 
 <script>
-import Page from './components/Page.vue'
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 export default {
   name: 'App',
   components: {
-    Page
   }
 }
 </script>

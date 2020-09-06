@@ -22,7 +22,7 @@
     <div>
   <b-card no-body class="card text-center border-dark mb-3">
     <b-tabs card>
-      <b-tab active> 
+      <b-tab active>
       <template v-slot:title>
           <button class="btn-sm btn-block btn-success float-center"><strong> 12 </strong> </button>
       </template>
@@ -50,22 +50,22 @@
       <div class="row comment">
         <div class="head">
         <small><strong class='user'>Diablo25</strong> 30.10.2017 12:13</small>
-        </div>    
+        </div>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin non lorem elementum, accumsan magna sed, faucibus mauris. Nulla pellentesque ante nibh, ac hendrerit ante fermentum sed. Nunc in libero dictum, porta nibh pellentesque, ultrices dolor. Curabitur nunc ipsum, blandit vel aliquam id, aliquam vel velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed sit amet mi dignissim, pretium justo non, lacinia libero. Nulla facilisi. Donec id sem velit. </p>
       </div>
       <div class="row comment">
         <div class="head">
           <small><strong class='user'>Giesche</strong> 30.10.2017 12:13</small>
-          </div>    
+          </div>
           <p>Praesent molestie ante nec metus convallis aliquam. Ut aliquam tincidunt mollis. Maecenas et ex sit amet est vehicula ultrices sed sit amet elit. Suspendisse potenti. Aenean et quam ut purus convallis porttitor. Mauris porttitor pretium elementum. Duis blandit elit tincidunt ipsum ultricies, ut faucibus lorem facilisis. Proin ipsum turpis, pharetra in lorem ac, porta ullamcorper velit. Proin gravida odio eget elit ultricies sodales. Vivamus vel tincidunt ligula. Proin pulvinar pellentesque velit eget luctus. Aliquam vitae enim ut purus vestibulum sollicitudin sit amet eget lacus. Nunc tempus fringilla tincidunt. </p>
           </div>
       </div>
-      <button type="submit" class="btn  btn-outline-info float-left m-2">Send</button>
+      <button class="btn  btn-outline-info float-left m-2">Send</button>
     </form>
      </div>
       </b-tab>
     </b-tabs>
-    <b-card-footer class="border-dark">        
+    <b-card-footer class="border-dark">
       <div class="row m-3">
           <div class="col">
             <vue-tags-input
@@ -74,11 +74,11 @@
               @tags-changed="newTags => tags = newTags"
             />
           </div>
-          <div><button class="btn btn-block btn-warning float-center"><i class="fa fa-star" aria-hidden="true"></i> </button> </div>
+          <div>  </div>
           <div class="col">
                 <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                    <button class="btn btn-warning"><i class="fa fa-star" aria-hidden="true"></i> </button>
                     <button type="button" class="btn btn-success">Approved</button>
-                    <button type="button" class="btn btn-secondary">Not clear</button>
                     <button type="button" class="btn btn-danger ">Fake</button>
                 </div>
           </div>
@@ -136,7 +136,7 @@ ul.nav li.active a {
   .vue-tags-input .ti-tag {
     position: relative;
     background: #ebde6e;
-    background-color: #051d27;
+    background-color: #343a40;
     color: #ffffff;
   }
 </style>
